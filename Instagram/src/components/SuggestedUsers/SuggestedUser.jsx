@@ -9,17 +9,17 @@ export default function SuggestedUser({user,setUser}) {
     const url =user?.profile_picture_id?ProfileUrl(user.profile_picture_id):'';
     const authUser = useAuthStore((state) => state.user);
     // console.log(user)
-    // console.log(authUser)
+    // console.log(setUser)
         
-        
+    
 	const onFollowUser = async () => {
 		await handleFollowUser();
-		setUser({
-			...user,
-			followers: isFollowing
-				? user.followers.filter((follower) => follower.uid !== authUser.uid)
-				: [...user.followers, authUser._id],
-		});
+		// setUser({
+		// 	...user,
+		// 	followers: isFollowing
+		// 		? user.followers.filter((follower) => follower.uid !== authUser.uid)
+		// 		: [...user.followers, authUser._id],
+		// });
         
 	};
 

@@ -2,6 +2,7 @@ import dayJs from 'dayjs';
 import PropTypes from "prop-types";
 import { FormatCurrency } from "../utils/hooks/useFormatCurrency";
 // import { FaTimes,FaHandLizard } from 'react-icons/fa';
+const apiUrl = import.meta.env.VITE_API_URL
 
 
 
@@ -38,7 +39,7 @@ export function DeliveryOptions({delivery,pro,setRefresh}){
                     // console.log(refresh);
                     const asyncFetch =async() =>{
                         try{
-                            const response =await fetch(`http://localhost:7004/api/v1/changedel/677d11f3fbb51c2146710501/${pro.productId}/${e.target.value}`, {
+                            const response =await fetch(`${apiUrl}api/v1/changedel/677d11f3fbb51c2146710501/${pro.productId}/${e.target.value}`, {
                                 method: "PATCH",
                                 headers: { "Content-Type": "application/json" },
                             })

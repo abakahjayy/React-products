@@ -4,10 +4,12 @@ import useShowToast from "./useShowToast";
 import API from "../utils/api";
 
 
-const useGetSuggestedUsers = () => {
+const useGetSuggestedUsers = (useri) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [suggestedUsers, setSuggestedUsers] = useState([]);
 	const authUser = useAuthStore((state) => state.user);
+	// console.log(useri)
+	// console.log(authUser)
 	const showToast = useShowToast();
 
 	useEffect(() => {
@@ -21,8 +23,8 @@ const useGetSuggestedUsers = () => {
                 let users = response.data.users
 
 				users = users.filter(f => f._id !== authUser._id);
-				users.forEach((user,index) =>{
-						authUser.following.forEach((following)=>{
+				users&&users.forEach((user,index) =>{
+					useri.following.forEach((following)=>{
 							if(user._id===following){
 								users.splice(index,1)
 							}
@@ -34,6 +36,7 @@ const useGetSuggestedUsers = () => {
 				const message = error.response?.data?.error || error.message
 				if(error.message==='canceled')return
 			    showToast("Error", message, "error");
+				console.log(error)
 			} finally {
 				setIsLoading(false);
 			}

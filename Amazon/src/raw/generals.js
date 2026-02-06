@@ -1,6 +1,6 @@
-import { ProductsContainer } from "../../components/ProductsContainer.jsx";
+import { ProductsContainer } from "../components/ProductsContainer.jsx";
 import { useState, useEffect, useRef } from "react";
-import { useFetchProducts } from "../hooks/useFetchProducts.js";
+import { useFetchProducts } from "../utils/hooks/useFetchProducts.js";
 
 export function Generals() {
     const [products, setProducts] = useState([]);

@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+
 export const useAddToCart = (products) =>{
     const [userDatas,setUserData] = useState({});
     const [loadings,setLoading] = useState(false);
     const [errors,setError] = useState();
+    const apiUrl = import.meta.env.VITE_API_URL
 
     useEffect(() =>{
         // console.log('Fetching data');
         const controller = new AbortController();
         const asyncFetch =async() =>{
             try{
-                const response =await fetch(`http://localhost:7004/api/v1/cart/677d11f3fbb51c2146710501`, {
+                const response =await fetch(`${apiUrl}/api/v1/cart/677d11f3fbb51c2146710501`, {
                     signal: controller.signal,
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },

@@ -6,6 +6,7 @@ import { CartContext } from "../utils/contexts/CartContext";
 import dayJs from "dayjs";
 import {useNavigate} from "react-router-dom";//We use this Link instead to prevent the page from refreshing
 const today = new dayJs();
+const apiUrl = import.meta.env.VITE_API_URL
 export function PaymentSummary({ quantity, totalCartCents }) {
     const navigate = useNavigate()
     const { shippingPriceCents, totalBeforeTaxCents, totalCents, taxCents } = useAmountCalc()
@@ -21,7 +22,7 @@ export function PaymentSummary({ quantity, totalCartCents }) {
     function MakeOrder() {
         const asyncFetch = async () => {
             try {
-                const response = await fetch(`http://localhost:7004/api/v1/orders`, {
+                const response = await fetch(`${apiUrl}/api/v1/orders`, {
 
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -45,7 +46,7 @@ export function PaymentSummary({ quantity, totalCartCents }) {
     function DeleteAllProduct(){
         const asyncFetch = async () => {
             try {
-                const response = await fetch(`http://localhost:7004/api/v1/changedel/677d11f3fbb51c2146710501/`, {
+                const response = await fetch(`${apiUrl}/api/v1/changedel/677d11f3fbb51c2146710501/`, {
 
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },

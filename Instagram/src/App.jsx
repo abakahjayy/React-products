@@ -18,7 +18,7 @@ export default function App(){
     const showToast = useShowToast()
     const {logout} =useLogout()
     const authUser= useAuthStore(state=>state.user)
-    const setAuthUser= useAuthStore((state)=>state.setAuthUser)
+    const setAuthUser= useAuthStore((state)=>state.setAuthUser) 
     const {user}= useAuthStore();
     const [loading, setLoading] = useState(true);
     // console.log(user?.token)

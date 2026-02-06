@@ -13,6 +13,6 @@ export function Homepage({authUser,onLogout}){
                 <SuggestedUsers authUser={authUser} onLogout={onLogout}/>
             </Box>
         </Flex>
-            </Container>
+        </Container>
 }
 

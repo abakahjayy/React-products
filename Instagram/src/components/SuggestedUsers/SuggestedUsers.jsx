@@ -1,11 +1,13 @@
 import { VStack,Flex, Text,Button, Box ,Link, SkeletonCircle,Skeleton} from "@chakra-ui/react"
 import SuggestedUser from "./SuggestedUser"
 import SuggestedHeader from "./SuggestedHeader"
+import useAuthStore from "../../store/useAuthStore";
 import useGetSuggestedUsers from "../../hooks/useGetSuggestedUsers"
 
 export default function SuggestedUsers({authUser,onLogout}) {
     const user=authUser.user?authUser.user:authUser
-    const { isLoading, suggestedUsers }=useGetSuggestedUsers()
+    const { isLoading, suggestedUsers }=useGetSuggestedUsers(user)
+    const setAuthUser= useAuthStore((state)=>state.setAuthUser)
     // suggestedUsers[0]&&console.log(suggestedUsers)
 
     if (isLoading) return <CommentSkeleton />;
@@ -24,7 +26,7 @@ export default function SuggestedUsers({authUser,onLogout}) {
 			)}
 
 			{suggestedUsers[0]&&suggestedUsers.map((user) => (
-				<SuggestedUser user={user} key={user._id} />
+				<SuggestedUser user={user} setUser={setAuthUser} key={user._id} />
 			))}
 
             <Box fontSize={12} color={'gray.500'} mt={5}>

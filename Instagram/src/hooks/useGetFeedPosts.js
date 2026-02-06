@@ -11,13 +11,14 @@ const useGetFeedPosts = () => {
 	const authUser = useAuthStore((state) => state.user);
 	const showToast = useShowToast();
 	const { setUserProfile } = useUserProfileStore();
+	const user=authUser.user?authUser.user:authUser
 
   // console.log(authUser)
 
 	useEffect(() => {
 		const getFeedPosts = async () => {
 			setIsLoading(true);
-			if (authUser?.following?.length === 0|| !authUser.following|| !authUser) {
+			if (user?.following?.length === 0|| !user.following|| !user) {
 				setIsLoading(false);
 				setPosts([]);
 				return;
@@ -39,7 +40,7 @@ const useGetFeedPosts = () => {
 			}
 		};
 
-		if (authUser) getFeedPosts();
+		if (user) getFeedPosts();
 	}, [authUser, showToast, setPosts, setUserProfile]);
 
 	return { isLoading, posts };

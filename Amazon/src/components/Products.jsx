@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import dayJs from "dayjs";
 const today=new dayJs();
 const date=today.format('ddd, D MMMM YYYY');
+const apiUrl = import.meta.env.VITE_API_URL
 
 export function Products({ product }) {
     return <>
@@ -52,7 +53,7 @@ export function Products({ product }) {
                 console.log(quany)
                 const asyncFetch = async () => {
                     try {
-                        const response = await fetch(`http://localhost:7004/api/v1/cart/677d11f3fbb51c2146710501`, {
+                        const response = await fetch(`${apiUrl}/api/v1/cart/677d11f3fbb51c2146710501`, {
 
                             method: "PATCH",
                             headers: { "Content-Type": "application/json" },

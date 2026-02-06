@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 import { ProfileUrl } from "../../utils/imageUrl";
 
 export default function SuggestedHeader({user,onLogout}) {
-        const url =user.profile_picture_id?ProfileUrl(user.profile_picture_id):'';
+        // const url =user.profile_picture_id?ProfileUrl(user.profile_picture_id):'';
+        // console.log(user)
+        const apiUrl = import.meta.env.VITE_API_URL
         const {isLoading} = useAuthStore()
         return (
             <Flex justifyContent={'space-between'} alignItems={'center'} w={'full'}>
                 <Flex alignItems={'center'} gap={2}>
                     <Link to={`${user.username}`}>
-                        <Avatar src={url} size={'lg'}/>
+                        <Avatar src={`${apiUrl}/api/v1/posts/image/${user.profile_picture_id}`} size={'lg'}/>
                     </Link>
                     <Text fontSize={13} fontWeight={'bold'}>
                         {user.username}

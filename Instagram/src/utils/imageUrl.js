@@ -10,7 +10,7 @@ export const ProfileUrl = (Id) => {
                     const imageURL = await fetchImage(Id);
                     setUrl(imageURL);
                 } catch (err) {
-                    console.error(err);
+                    console.warn(err);
                 }
         };
 

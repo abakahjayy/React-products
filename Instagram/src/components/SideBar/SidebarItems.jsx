@@ -4,10 +4,19 @@ import Notifications from "./Notifications";
 import ProfileLink from "./ProfileLink";
 import Search from "./Search";
 import Messages from './MessagesLink'
+import { ChatGptLogo ,UpgradeLogo, MoreLogo,NewChatLogo,SearchLogos,HideSideBarLogo,MicLogo,ArrowDropLogo} from "../../assets/constants";
 
 const SidebarItems = ({authUser,onLogout}) => {
 	return (
 		<>
+			{/* <ChatGptLogo/>
+			<UpgradeLogo/>
+			<MoreLogo/>
+			<NewChatLogo/>
+			<SearchLogos/>
+			<HideSideBarLogo/>
+			<MicLogo/>
+			<ArrowDropLogo/> */}
 			<Home authUser={authUser} onLogout={onLogout} />
 			<Search authUser={authUser} onLogout={onLogout}/>
 			<Notifications authUser={authUser} onLogout={onLogout}/>

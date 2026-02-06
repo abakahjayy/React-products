@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import { FormatCurrency } from "../utils/hooks/useFormatCurrency";
 import { useFetchDelivery } from "../utils/hooks/useFetchDelivery";
 import { useDates } from "../utils/hooks/useDates";
+const apiUrl = import.meta.env.VITE_API_URL
 // const today = new dayJs();
 
 export function OrderSummary({pro,setRefresh}) {
@@ -80,7 +81,7 @@ export function OrderSummary({pro,setRefresh}) {
         }
         const asyncFetch = async () => {
             try {
-                const response = await fetch(`http://localhost:7004/api/v1/cart/677d11f3fbb51c2146710501/${pro.productId}/${quantity}`, {
+                const response = await fetch(`${apiUrl}/api/v1/cart/677d11f3fbb51c2146710501/${pro.productId}/${quantity}`, {
 
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
@@ -112,7 +113,7 @@ export function OrderSummary({pro,setRefresh}) {
     function DeleteProduct(){
         const asyncFetch = async () => {
             try {
-                const response = await fetch(`http://localhost:7004/api/v1/cart/677d11f3fbb51c2146710501/${pro.productId}/`, {
+                const response = await fetch(`${apiUrl}/api/v1/cart/677d11f3fbb51c2146710501/${pro.productId}/`, {
 
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
