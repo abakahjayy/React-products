@@ -1,5 +1,6 @@
 import useAuthStore from "../store/useAuthStore";
 import API from "../utils/api";
+import { closeSocket } from "../utils/socket";
 import useShowToast from "./useShowToast"; // Custom toast hook (if you have one)
 
 const useLogout = () => {
@@ -26,6 +27,7 @@ const useLogout = () => {
             console.log(userData)
 
             // Save user info to Zustand and local storage
+            closeSocket(); // the socket is authenticated as this user
             logoutUser(); // Update Zustand state
             setAuthUser(null);
             setError(null)

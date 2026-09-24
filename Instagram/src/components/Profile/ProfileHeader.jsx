@@ -4,6 +4,7 @@ import EditProfile from "./EditProfile";
 import { ProfileUrl } from "../../utils/imageUrl";
 import useAuthStore from "../../store/useAuthStore";
 import useFollowUser from "../../hooks/useFollowUser";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function ProfileHeader({authUser,onLogout,username,owner}) {
       const user=authUser.user?authUser.user:authUser
@@ -58,6 +59,15 @@ export default function ProfileHeader({authUser,onLogout,username,owner}) {
                   isLoading={isUpdating}
                 >
                   {isFollowing ? "Unfollow" : "Follow"}
+                </Button>
+                <Button
+                  as={RouterLink}
+                  to={`/messages/${user._id}`}
+                  bg={"whiteAlpha.200"}
+                  _hover={{ bg: "whiteAlpha.300" }}
+                  size={{ base: "xs", md: "sm" }}
+                >
+                  Message
                 </Button>
               </Flex>
             )}

@@ -17,7 +17,7 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { CreatePostLogo } from "../../assets/constants";
-import { BsFillImageFill } from "react-icons/bs";
+import { BsCameraVideoFill, BsFillImageFill } from "react-icons/bs";
 import { useRef, useState } from "react";
 import usePreviewImg from "../../hooks/usePreviewing";
 import useShowToast from "../../hooks/useShowToast";
@@ -30,7 +30,7 @@ const CreatePost = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [caption, setCaption] = useState("");
 	const imageRef = useRef(null);
-	const {formDatas2,  handleImageChange, selectedFile, setSelectedFile } = usePreviewImg();
+	const {formDatas2,  handleImageChange, selectedFile, mediaType, setSelectedFile } = usePreviewImg({ allowVideo: true });
 	const showToast = useShowToast();
 	const { isLoading, handleCreatePost } = useCreatePost();
 
@@ -83,16 +83,31 @@ const CreatePost = () => {
 							onChange={(e) => setCaption(e.target.value)}
 						/>
 
-						<Input type='file' hidden ref={imageRef} onChange={handleImageChange} />
+						<Input type='file' accept='image/*,video/*' hidden ref={imageRef} onChange={handleImageChange} />
 
-						<BsFillImageFill
+						<Flex
+							as='button'
+							type='button'
 							onClick={() => imageRef.current.click()}
-							style={{ marginTop: "15px", marginLeft: "5px", cursor: "pointer" }}
-							size={16}
-						/>
+							mt={4}
+							ml={1}
+							gap={2}
+							alignItems='center'
+							fontSize='sm'
+							color='gray.400'
+							_hover={{ color: "white" }}
+						>
+							<BsFillImageFill size={16} />
+							<BsCameraVideoFill size={18} />
+							Add photo or video
+						</Flex>
 						{selectedFile && (
 							<Flex mt={5} w={"full"} position={"relative"} justifyContent={"center"}>
-								<Image src={selectedFile} alt='Selected img' />
+								{mediaType === "video" ? (
+									<video src={selectedFile} controls playsInline style={{ maxHeight: "60vh", width: "100%" }} />
+								) : (
+									<Image src={selectedFile} alt='Selected img' />
+								)}
 								<CloseButton
 									position={"absolute"}
 									top={2}
@@ -133,7 +148,7 @@ function useCreatePost() {
 	// console.log(authUser._id)
 	const handleCreatePost = async (formDatas2,selectedFile, caption) => {
 		if (isLoading) return;
-		if (!selectedFile) throw new Error("Please select an image");
+		if (!selectedFile) throw new Error("Please select an image or video");
 		setIsLoading(true);
 		const newPost = {
 			caption: caption,

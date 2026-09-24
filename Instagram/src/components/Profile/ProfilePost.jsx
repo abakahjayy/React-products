@@ -4,7 +4,6 @@ import {
 	Divider,
 	Flex,
 	GridItem,
-	Image,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -20,7 +19,8 @@ import { MdDelete } from "react-icons/md";
 import Comment from "../Comment/Comment";
 import Caption from "../Comment/Caption";
 import PostFooter from "../FeedPosts/PostFooter";
-import { ProfileUrl } from "../../utils/imageUrl";
+import PostMedia from "../FeedPosts/PostMedia";
+import { imageUrl } from "../../utils/media";
 import useProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/useAuthStore";
 import useShowToast from "../../hooks/useShowToast";
@@ -35,7 +35,7 @@ export default function ProfilePost({post}) {
   const showToast = useShowToast();
 	const [isDeleting, setIsDeleting] = useState(false);
 	const deletePost = useProfileStore((state) => state.deletePost);
-  const url =post?.postId?ProfileUrl(post.postId):'';
+  const avatarUrl = imageUrl(userProfile?.user?.profile_picture_id);
   // console.log(post)
 
   const handleDeletePost = async () => {
@@ -102,7 +102,7 @@ export default function ProfilePost({post}) {
               </Flex>
             </Flex>
           </Flex>
-          <Image src={url}  w={"100%"} h={"100%"} objectFit={"cover"} />
+          <PostMedia post={post} variant="thumb" />
         </GridItem>
 
 
@@ -129,14 +129,15 @@ export default function ProfilePost({post}) {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Image src={url} />
+                {/* only mounted while the modal is open, so the video stops when it closes */}
+                <PostMedia post={post} variant="full" />
               </Flex>
 
               {/* Second Half Of the Modal */}
               <Flex flex={1} flexDir={"column"} px={10} display={{ base: "none", md: "flex" }}>
                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                   <Flex alignItems={"center"} gap={4}>
-                    <Avatar src={url} size={"sm"} name='As a Programmer' />
+                    <Avatar src={avatarUrl} size={"sm"} name={userProfile?.user?.username} />
                     <Text fontWeight={"bold"} fontSize={12}>
                       {userProfile?.user?.username}
                     </Text>

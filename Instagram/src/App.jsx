@@ -1,4 +1,3 @@
-import ChatApp from "./components/ChatApp/ChatAppDemo.jsx";
 import { createBrowserRouter, RouterProvider, Navigate, useNavigate } from 'react-router-dom';
 import {Homepage} from './pages/Homepage/Homepage'
 import { Authpage } from "./pages/Authpage/Authpage.jsx";
@@ -11,7 +10,7 @@ import MessagesPage from './pages/Messages/Messages';
 import useLogout from "./hooks/useLogout.js";
 import { Flex, Spinner } from "@chakra-ui/react";
 import useShowToast from "./hooks/useShowToast.js";
-import ChatModal from "./components/Modals/messagesModal.jsx";
+import ChatPage from "./pages/Messages/Chat.jsx";
 
 
 export default function App(){
@@ -98,8 +97,7 @@ export default function App(){
             path: '/messages/:id',
             element: (
                 <PageLayout authUser={authUser} onLogout={handleLogout}>
-                    {/* {authUser ? <ProfilePage authUser={authUser} onLogout={handleLogout} /> : <Navigate to="/auth" onLogout={handleLogout}/>} */}
-                    <ChatModal authUser={authUser}  onLogout={handleLogout} />
+                    {authUser ? <ChatPage /> : <Navigate to="/auth" />}
                 </PageLayout>
             ),
         },
@@ -120,7 +118,6 @@ export default function App(){
     return <>
             {/* This is for Creating Routes and Pages */}
             <RouterProvider router={router} />
-            {/* <ChatApp userId={'67886226f65d5209b0836659'} recipientId={'67886bde4f9166876c734a8c'}/> */}
         </>
 }
 
